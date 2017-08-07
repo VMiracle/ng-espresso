@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { MaterializeModule } from 'ng2-materialize';
 
 @Component({
   selector: 'app-root',

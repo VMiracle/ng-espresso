@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { Hello } from './app.hello';
 import { About } from './app.about';
 
+import { MaterializeModule } from 'ng2-materialize';
+
 let helloState = { 
   name: 'hello', 
   url: '/hello', 
@@ -28,7 +30,8 @@ let aboutState = {
     UIRouterModule.forRoot({
       states: [ helloState, aboutState ],
       useHash: true
-    })
+    }),
+    MaterializeModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
