@@ -1,0 +1,13 @@
+.vscode/
+frontend/node_modules/
+*.backup
+frontend/prod/
+frontend/stylesheets/*.css
+frontend/templates/*.html
+frontend/*.css
+backend/vendor/
+backend/tests/
+backend/data/
+*.log
+mobile/node_modules/
+mobile/platforms/
