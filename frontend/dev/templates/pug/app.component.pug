@@ -1,4 +1,26 @@
 include globals.pug
+include form-creator-mixin.pug
+
+- var usernameObj = {"type":"text","classes":"col s6 m6 l6","id":"username","name":"username","label":"Nombre de usuario","target":"username","icon":"account-circle"};
+- var passwordObj = {"type":"password","classes":"col s6 m6 l6","id":"userpassword","name":"password","label":"Contraseña","target":"password","icon":"lock"};
+- var checkboxObj = {"type":"checkbox","classes":"col s12","id":"keep_alive","name":"keep_alive","label":"Mantener la sesión iniciada","target":"checkbox"};
+- var radio1Obj   = {"type":"radio","classes":"col s12","id":"download_data","label":"Descargar todos los datos al conectarse (puede retrasar la conexión por varios minutos)","name":"add_options","target":"download_radio","value":"download"};
+- var radio2Obj   = {"type":"radio","classes":"col s12","id":"no_download_data","label":"Pedir datos al servidor en cada solicitud (conexión rápida, pero afecta el uso de la aplicación en caso de quedarse sin red)","name":"add_options","target":"download_radio","value":"no_download"};
+- var selectObj   = {"type":"select","id":"select_lmao","name":"select_lmao","target":"select_lmao","classes":"select-material","label":"Ayyy lmao","placeholder":"select an lmao","options":[{"label":"Opción 1","value":1},{"label":"Opción 2","value":2},{"label":"Opción 3","value":3}]};
+- var textareaObj = {"type":"textarea","label":"Area de texto","placeholder":"Super area de texto","id":"textarea","name":"textarea","target":"paragraph","icon":"message-reply-text"};
+
+div.container
+    div.row
+        mz-card(class='col s12 m10 l8 offset-m1 offset-l2')
+            mz-card-title Inicio de sesión
+            mz-card-content
+                +mz-form({"name":"login_form","contents":{"type":"rows","classes":"card-panel white","rows":[{"type":"row","columns":[{"contents":usernameObj},{"contents":passwordObj}]},{"type":"row","columns":[{"contents":checkboxObj}]},{"type":"row","columns":[{"contents":radio1Obj}]},{"type":"row","columns":[{"contents":radio2Obj}]},{"type":"row","columns":[{"contents":selectObj}]},{"type":"row","columns":[{"contents":textareaObj}]}]}})
+                p Nombre de usuario: {{username}}
+                p Contraseña: {{password}}
+                p Lmao: {{select_lmao}}
+                p Textarea: {{paragraph}}
+                p Checkbox: {{checkbox}}
+                p Radio Button: {{download_radio}}
 
 a(uiSref='hello' uiSrefActive='active-class') Hello
 br

@@ -1,1 +1,58 @@
-<a mz-button uiSref="hello" uiSrefActive="active-class">Hello</a><br/><a uiSref="about" uiSrefActive="active-class">About</a><ui-view></ui-view>
+
+<div class="container">
+  <div class="row">
+    <mz-card class="col s12 m10 l8 offset-m1 offset-l2">
+      <mz-card-title>Inicio de sesión</mz-card-title>
+      <mz-card-content>
+        <form name="login_form">
+          <div class="card-panel white">
+            <div class="row">
+              <mz-input-container class="col s6 m6 l6"><i mz-icon-mdi="mz-icon-mdi" mz-textarea-prefix="mz-textarea-prefix" [icon]="'account-circle'"></i>
+                <input mz-input="mz-input" type="text" [label]="'Nombre de usuario'" id="username" [(ngModel)]="username" name="username"/>
+              </mz-input-container>
+              <mz-input-container class="col s6 m6 l6"><i mz-icon-mdi="mz-icon-mdi" mz-textarea-prefix="mz-textarea-prefix" [icon]="'lock'"></i>
+                <input mz-input="mz-input" type="password" [label]="'Contraseña'" id="userpassword" [(ngModel)]="password" name="password"/>
+              </mz-input-container>
+            </div>
+            <div class="row">
+              <mz-checkbox-container class="col s12">
+                <input mz-checkbox="mz-checkbox" type="checkbox" [label]="'Mantener la sesión iniciada'" id="keep_alive" [(ngModel)]="checkbox" name="keep_alive"/>
+              </mz-checkbox-container>
+            </div>
+            <div class="row">
+              <mz-radio-button-container class="col s12">
+                <input mz-radio-button="mz-radio-button" type="radio" [label]="'Descargar todos los datos al conectarse (puede retrasar la conexión por varios minutos)'" id="download_data" name="add_options" [(ngModel)]="download_radio" value="download"/>
+              </mz-radio-button-container>
+            </div>
+            <div class="row">
+              <mz-radio-button-container class="col s12">
+                <input mz-radio-button="mz-radio-button" type="radio" [label]="'Pedir datos al servidor en cada solicitud (conexión rápida, pero afecta el uso de la aplicación en caso de quedarse sin red)'" id="no_download_data" name="add_options" [(ngModel)]="download_radio" value="no_download"/>
+              </mz-radio-button-container>
+            </div>
+            <div class="row">
+              <mz-select-container class="select-material">
+                <select mz-select="mz-select" [label]="'Ayyy lmao'" id="select_lmao" name="select_lmao" [placeholder]="'select an lmao'" [(ngModel)]="select_lmao">
+                  <option [value]="1">Opción 1</option>
+                  <option [value]="2">Opción 2</option>
+                  <option [value]="3">Opción 3</option>
+                </select>
+              </mz-select-container>
+            </div>
+            <div class="row">
+              <mz-textarea-container><i mz-icon-mdi="mz-icon-mdi" mz-textarea-prefix="mz-textarea-prefix" [icon]="'message-reply-text'"></i>
+                <textarea mz-textarea="mz-textarea" [label]="'Area de texto'" id="textarea" placeholder="Super area de texto" [(ngModel)]="paragraph" name="textarea"></textarea>
+              </mz-textarea-container>
+            </div>
+          </div>
+        </form>
+        <p>Nombre de usuario: {{username}}</p>
+        <p>Contraseña: {{password}}</p>
+        <p>Lmao: {{select_lmao}}</p>
+        <p>Textarea: {{paragraph}}</p>
+        <p>Checkbox: {{checkbox}}</p>
+        <p>Radio Button: {{download_radio}}</p>
+      </mz-card-content>
+    </mz-card>
+  </div>
+</div><a uiSref="hello" uiSrefActive="active-class">Hello</a><br/><a uiSref="about" uiSrefActive="active-class">About</a>
+<ui-view></ui-view>

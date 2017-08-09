@@ -1,0 +1,118 @@
+//-Form wrapper
+    Creates a form for purposes of submitting
+
+    formObject
+
+    {
+        name:
+        method:
+        target:
+        action:
+        rows:
+    }
+
+mixin mz-form(formObject)
+    form(name= formObject.name method= formObject.method target= formObject.target action= formObject.action)
+        div(class= formObject.contents.classes)
+            each row in formObject.contents.rows
+                .row
+                    each column in row.columns
+                        if column.contents.type == "text"
+                            +mz-input(column.contents)
+                        else if column.contents.type == "password"
+                            +mz-input(column.contents)
+                        else if column.contents.type == "textarea"
+                            +mz-textarea(column.contents)
+                        else if column.contents.type == "checkbox"
+                            +mz-checkbox(column.contents)
+                        else if column.contents.type == "radio"
+                            +mz-radio-button(column.contents)
+                        else if column.contents.type == "select"
+                            +mz-select(column.contents)
+            
+
+//-Text input mixin
+    Creates a Materialize text input object
+
+    inputObject
+    {
+        type: password or text
+        id:
+        classes:
+        label:
+        target: The data binding target
+        icon:
+    }
+
+mixin mz-input(inputObject)
+    mz-input-container(class= inputObject.classes)
+        if inputObject.icon
+            i('mz-icon-mdi' 'mz-textarea-prefix' '[icon]'="\'" + inputObject.icon + "\'")
+        input('mz-input' type= inputObject.type '[label]'= "\'" + inputObject.label + "\'" id= inputObject.id '[(ngModel)]'= inputObject.target name= inputObject.name)
+
+//-Text area mixin
+    Creates a Materialize text area with a textarea object
+
+    textareaObject
+    {
+        id:
+        classes:
+        label:
+        placeholder:
+        length:
+        name:
+        icon:
+    }
+
+mixin mz-textarea(textareaObject)
+    mz-textarea-container(class= textareaObject.classes)
+        if textareaObject.icon
+            i('mz-icon-mdi' 'mz-textarea-prefix' '[icon]'="\'" + textareaObject.icon + "\'")
+        textarea('mz-textarea' '[label]'= "\'" + textareaObject.label + "\'" id= textareaObject.id placeholder= textareaObject.placeholder lenght= textareaObject.lenght '[(ngModel)]'= textareaObject.target name= textareaObject.name)
+
+//-Checkbox mixin
+    Creates a Materialize text input object
+
+    inputObject
+    {
+        type: checkbox
+        id:
+        classes:
+        label:
+        name:
+    }
+
+mixin mz-checkbox(checkboxObject)
+    mz-checkbox-container(class= checkboxObject.classes)
+        input('mz-checkbox' type='checkbox' '[label]'= "\'" + checkboxObject.label + "\'" id= checkboxObject.id '[(ngModel)]'= checkboxObject.target name= checkboxObject.name)
+
+//-Radio button mixin
+    Creates a Materialize text input object
+
+    inputObject
+    {
+        type: radio
+        id:
+        classes:
+        label:
+        name:
+    }
+
+mixin mz-radio-button(radioButtonObject)
+    mz-radio-button-container(class= radioButtonObject.classes)
+        input('mz-radio-button' type='radio' '[label]'= "\'" + radioButtonObject.label + "\'" id= radioButtonObject.id name= radioButtonObject.name '[withGap]'= radioButtonObject.gap '[(ngModel)]'= radioButtonObject.target value= radioButtonObject.value)
+
+//-
+    TODO: Comment <mz-select-container>
+    
+mixin mz-select(selectObject)
+    mz-select-container(class= selectObject.classes)
+        select('mz-select' '[label]'= "\'" + selectObject.label + "\'" id= selectObject.id name= selectObject.name '[placeholder]'= "\'" + selectObject.placeholder + "\'" '[(ngModel)]'= selectObject.target)
+            each option in selectObject.options
+                +mz-option(option)
+
+//-
+    TODO: Option Comment
+
+mixin mz-option(optionObject)
+    option(class= optionObject.classes id= optionObject.id '[value]'= optionObject.value)= optionObject.label
