@@ -13,23 +13,57 @@
 
 mixin mz-form(formObject)
     form(name= formObject.name method= formObject.method target= formObject.target action= formObject.action)
-        div(class= formObject.contents.classes)
-            each row in formObject.contents.rows
-                .row
-                    each column in row.columns
-                        if column.contents.type == "text"
-                            +mz-input(column.contents)
-                        else if column.contents.type == "password"
-                            +mz-input(column.contents)
-                        else if column.contents.type == "textarea"
-                            +mz-textarea(column.contents)
-                        else if column.contents.type == "checkbox"
-                            +mz-checkbox(column.contents)
-                        else if column.contents.type == "radio"
-                            +mz-radio-button(column.contents)
-                        else if column.contents.type == "select"
-                            +mz-select(column.contents)
-            
+        if formObject.contents.type == "rows"
+            div(class= formObject.contents.classes)
+                +print-rows(formObject.contents)
+        else if formObject.contents.type == "row"
+            div(class= formObject.contents.classes)
+                +print-row(formObject.contents)
+        else if formObject.contents.type == "column"
+            div(class= formObject.contents.classes)
+                +print-column(formObject.contents)
+        else if formObject.contents.type == "sections"
+            div(class= formObject.contents.classes)
+                +print-sections(formObject.contents)
+        else if formObject.contents.type == "section"
+            div(class= formObject.contents.classes)
+                +print-section(formObject.contents)
+
+mixin print-rows(rowsObject)
+    each row in rowsObject.rows
+        div(class= "row " + row.classes)
+            +print-row(row)
+
+mixin print-row(rowObject)
+    each column in rowObject.columns
+        div(class= column.classes)
+            +print-column(column)
+
+mixin print-column(columnObject)
+    if columnObject.contents.type == "text"
+        +mz-input(columnObject.contents)
+    else if columnObject.contents.type == "password"
+        +mz-input(columnObject.contents)
+    else if columnObject.contents.type == "textarea"
+        +mz-textarea(columnObject.contents)
+    else if columnObject.contents.type == "checkbox"
+        +mz-checkbox(columnObject.contents)
+    else if columnObject.contents.type == "radio"
+        +mz-radio-button(columnObject.contents)
+    else if columnObject.contents.type == "select"
+        +mz-select(columnObject.contents)
+
+mixin print-sections(sectionObject)
+    each section in sectionObject.sections
+        +print-section(section)
+
+mixin print-section(sectionObject)
+    if sectionObject.contents.type == "rows"
+        div(class= sectionObject.classes)
+            +print-rows(sectionObject.contents)
+    else if sectionObject.contents.type == "section"
+        div(class= sectionObject.classes)
+            +print-section(sectionObject.contents)
 
 //-Text input mixin
     Creates a Materialize text input object

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {UIRouterModule} from "@uirouter/angular";
 import { FormsModule } from '@angular/forms';
+import { NgForOf } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { Hello } from './app.hello';
