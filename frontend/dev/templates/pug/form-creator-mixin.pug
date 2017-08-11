@@ -9,10 +9,12 @@
         target:
         action:
         rows:
+        ngFor:
+        ngIf:
     }
 
 mixin mz-form(formObject)
-    form(name= formObject.name method= formObject.method target= formObject.target action= formObject.action)
+    form(name= formObject.name method= formObject.method target= formObject.target action= formObject.action "*ngFor"= formObject.ngFor)
         if formObject.contents.type == "rows"
             div(class= formObject.contents.classes)
                 +print-rows(formObject.contents)
@@ -36,7 +38,7 @@ mixin print-rows(rowsObject)
 
 mixin print-row(rowObject)
     each column in rowObject.columns
-        div(class= column.classes)
+        div(class= column.classes "*ngFor"= column.contents.ngFor)
             +print-column(column)
 
 mixin print-column(columnObject)
@@ -81,8 +83,8 @@ mixin print-section(sectionObject)
 mixin mz-input(inputObject)
     mz-input-container(class= inputObject.classes)
         if inputObject.icon
-            i('mz-icon-mdi' 'mz-textarea-prefix' '[icon]'="\'" + inputObject.icon + "\'")
-        input('mz-input' type= inputObject.type '[label]'= "\'" + inputObject.label + "\'" id= inputObject.id '[(ngModel)]'= inputObject.target name= inputObject.name)
+            i('mz-icon-mdi' 'mz-textarea-prefix' '[icon]'= inputObject.icon)
+        input('mz-input' type= inputObject.type '[label]'= inputObject.label id= inputObject.id '[(ngModel)]'= inputObject.target name= inputObject.name)
 
 //-Text area mixin
     Creates a Materialize text area with a textarea object
@@ -101,8 +103,8 @@ mixin mz-input(inputObject)
 mixin mz-textarea(textareaObject)
     mz-textarea-container(class= textareaObject.classes)
         if textareaObject.icon
-            i('mz-icon-mdi' 'mz-textarea-prefix' '[icon]'="\'" + textareaObject.icon + "\'")
-        textarea('mz-textarea' '[label]'= "\'" + textareaObject.label + "\'" id= textareaObject.id placeholder= textareaObject.placeholder lenght= textareaObject.lenght '[(ngModel)]'= textareaObject.target name= textareaObject.name)
+            i('mz-icon-mdi' 'mz-textarea-prefix' '[icon]'= textareaObject.icon)
+        textarea('mz-textarea' '[label]'= textareaObject.label id= textareaObject.id placeholder= textareaObject.placeholder lenght= textareaObject.lenght '[(ngModel)]'= textareaObject.target name= textareaObject.name)
 
 //-Checkbox mixin
     Creates a Materialize text input object
@@ -118,7 +120,7 @@ mixin mz-textarea(textareaObject)
 
 mixin mz-checkbox(checkboxObject)
     mz-checkbox-container(class= checkboxObject.classes)
-        input('mz-checkbox' type='checkbox' '[label]'= "\'" + checkboxObject.label + "\'" id= checkboxObject.id '[(ngModel)]'= checkboxObject.target name= checkboxObject.name)
+        input('mz-checkbox' type='checkbox' '[label]'= checkboxObject.label id= checkboxObject.id '[(ngModel)]'= checkboxObject.target name= checkboxObject.name)
 
 //-Radio button mixin
     Creates a Materialize text input object
@@ -134,14 +136,14 @@ mixin mz-checkbox(checkboxObject)
 
 mixin mz-radio-button(radioButtonObject)
     mz-radio-button-container(class= radioButtonObject.classes)
-        input('mz-radio-button' type='radio' '[label]'= "\'" + radioButtonObject.label + "\'" id= radioButtonObject.id name= radioButtonObject.name '[withGap]'= radioButtonObject.gap '[(ngModel)]'= radioButtonObject.target value= radioButtonObject.value)
+        input('mz-radio-button' type='radio' '[label]'= radioButtonObject.label id= radioButtonObject.id name= radioButtonObject.name '[withGap]'= radioButtonObject.gap '[(ngModel)]'= radioButtonObject.target value= radioButtonObject.value)
 
 //-
     TODO: Comment <mz-select-container>
     
 mixin mz-select(selectObject)
     mz-select-container(class= selectObject.classes)
-        select('mz-select' '[label]'= "\'" + selectObject.label + "\'" id= selectObject.id name= selectObject.name '[placeholder]'= "\'" + selectObject.placeholder + "\'" '[(ngModel)]'= selectObject.target)
+        select('mz-select' '[label]'= selectObject.label id= selectObject.id name= selectObject.name '[placeholder]'= selectObject.placeholder '[(ngModel)]'= selectObject.target)
             each option in selectObject.options
                 +mz-option(option)
 

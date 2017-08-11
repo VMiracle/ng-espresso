@@ -21,6 +21,9 @@ export class AppComponent {
         {"type":"text","classes":"col s12 m12 l12","id":"realname","name":"realname","target":this.realname,"label":"Nombre"},
         {"type":"text","classes":"col s12 m12 l12","id":"lastname","name":"lastname","target":this.lastname,"label":"Apellido"}
     ];
+    checkbox;
+    select_lmao;
+    download_radio;
 
     /*
     //TODO: Autoresize triggering for textareas

@@ -48,9 +48,9 @@
                 <div>
                   <mz-select-container class="select-material">
                     <select mz-select="mz-select" [label]="'Ayyy lmao'" id="select_lmao" name="select_lmao" [placeholder]="'select an lmao'" [(ngModel)]="select_lmao">
-                      <option [value]="1">Opción 1</option>
-                      <option [value]="2">Opción 2</option>
-                      <option [value]="3">Opción 3</option>
+                      <option [value]="1">'Opción 1'</option>
+                      <option [value]="2">'Opción 2'</option>
+                      <option [value]="3">'Opción 3'</option>
                     </select>
                   </mz-select-container>
                 </div>
@@ -58,8 +58,17 @@
               <div class="row undefined">
                 <div>
                   <mz-textarea-container><i mz-icon-mdi="mz-icon-mdi" mz-textarea-prefix="mz-textarea-prefix" [icon]="'message-reply-text'"></i>
-                    <textarea mz-textarea="mz-textarea" [label]="'Area de texto'" id="textarea" placeholder="Super area de texto" [(ngModel)]="paragraph" name="textarea"></textarea>
+                    <textarea mz-textarea="mz-textarea" [label]="'Area de texto'" id="textarea" placeholder="'Super area de texto'" [(ngModel)]="paragraph" name="textarea"></textarea>
                   </mz-textarea-container>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="row undefined">
+                <div *ngFor="let field of textInputs">
+                  <mz-input-container class="col s12 m12 l12">
+                    <input mz-input="mz-input" type="text" [label]="field.label" id="{{field.id}}" name="{{field.name}}"/>
+                  </mz-input-container>
                 </div>
               </div>
             </div>
