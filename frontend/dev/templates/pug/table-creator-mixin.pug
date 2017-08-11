@@ -1,0 +1,63 @@
+//-
+    function table(tableObject){
+
+    }
+
+    Input
+
+    tableObject
+
+    {
+        "type":"table",
+        "id":"id",
+        "classes":"class",
+        "style":,
+        "thead":{},
+        "tfoot":{},
+        "tbody":{}
+    }
+
+    Output
+
+    <table id="id" class="class" style="style">
+        Output of tableHeader(thead);
+        Output of tableFooter(tfoot);
+        Output of tableBody(tbody);
+    </table>
+
+mixin table(tableObject)
+    table(class= tableObject.classes id= tableObject.id style= tableObject.style)
+    if tableObject.thead
+        +tableHeader(tableObject.thead)
+    if tableObject.tfoot
+        +tableFooter(tableObject.tfoot)
+    if tableObject.tbody
+        +tableBody(tableObject.tbody)
+
+mixin tableHeader(headerObject)
+    thead(class= headerObject.classes id= headerObject.id)
+        each row in headerObject.rows
+            +headerRow(row)
+
+mixin tableFooter(footerObject)
+    tfoot(class= footerObject.classes id= footerObject.id)
+        each row in footerObject.rows
+            +tableRow(row)
+
+mixin tableBody(bodyObject)
+    tbody(class= bodyObject.classes id= bodyObject.id)
+        each row in bodyObject.rows
+            +tableRow(row)
+
+mixin tableRow(rowObject)
+    tr(class= rowObject.classes id= rowObject.id)
+        each column in rowObject.columns
+            +tableColumn(column)
+
+mixin tableColumn(columnObject)
+    th(class= columnObject.classes id= columnObject.id) columnObject.contents
+
+mixin headerRow(rowObject)
+    tr(class= rowObject.classes id= rowObject.id)
+        each column in rowObject.columns
+            +headerColumn(column)
