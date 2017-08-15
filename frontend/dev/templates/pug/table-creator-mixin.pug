@@ -55,9 +55,12 @@ mixin tableRow(rowObject)
             +tableColumn(column)
 
 mixin tableColumn(columnObject)
-    th(class= columnObject.classes id= columnObject.id) columnObject.contents
+    td(class= columnObject.classes id= columnObject.id) columnObject.contents
 
 mixin headerRow(rowObject)
     tr(class= rowObject.classes id= rowObject.id)
         each column in rowObject.columns
             +headerColumn(column)
+
+mixin headerColumn(columnObject)
+    th(class= columnObject.classes id= columnObject.id) columnObject.contents

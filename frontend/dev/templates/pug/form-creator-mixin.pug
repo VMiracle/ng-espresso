@@ -8,13 +8,13 @@
         method:
         target:
         action:
-        rows:
+        contents:
         ngFor:
         ngIf:
     }
 
 mixin mz-form(formObject)
-    form(name= formObject.name method= formObject.method target= formObject.target action= formObject.action "*ngFor"= formObject.ngFor)
+    form(name= formObject.name method= formObject.method target= formObject.target action= formObject.action "*ngFor"= formObject.ngFor id= formObject.id)
         if formObject.contents.type == "rows"
             div(class= formObject.contents.classes)
                 +print-rows(formObject.contents)
