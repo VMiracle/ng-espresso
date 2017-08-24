@@ -24,7 +24,6 @@
     "angular2-fontawesome": "^0.9.3",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
-    "gulp": "^3.9.1",
     "gulp-pug2": "0.0.2",
     "jquery": "^3.2.1",
     "materialize-css": "^0.100.1",
@@ -39,11 +38,12 @@
     "@angular/language-service": "^4.0.0",
     "@types/node": "~6.0.60",
     "codelyzer": "~3.0.1",
-    "ts-node": "~3.0.4",
-    "tslint": "~5.3.2",
-    "typescript": "~2.3.3",
+    "gulp": "^3.9.1",
     "less": "^2.7.2",
     "less-plugin-clean-css": "^1.5.1",
-    "pug-cli": "^1.0.0-alpha6"
+    "pug-cli": "^1.0.0-alpha6",
+    "ts-node": "~3.0.4",
+    "tslint": "~5.3.2",
+    "typescript": "~2.3.3"
   }
 }

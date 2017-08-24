@@ -1,14 +1,15 @@
 include globals.pug
-include form-creator-mixin.pug
+include ionic-form-creator-mixin.pug
+include materialize-creator-mixin.pug
 
-- var usernameObj = {"type":"text","classes":"col s6 m6 l6","id":"username","name":"username","label":"'Nombre de usuario'","target":"username","icon":"'account-circle'"};
-- var passwordObj = {"type":"password","classes":"col s6 m6 l6","id":"userpassword","name":"password","label":"'Contraseña'","target":"password","icon":"'lock'"};
-- var checkboxObj = {"type":"checkbox","classes":"col s12","id":"keep_alive","name":"keep_alive","label":"'Mantener la sesión iniciada'","target":"checkbox"};
-- var radio1Obj   = {"type":"radio","classes":"col s12","id":"download_data","label":"'Descargar todos los datos al conectarse (puede retrasar la conexión por varios minutos)'","name":"add_options","target":"download_radio","value":"download"};
-- var radio2Obj   = {"type":"radio","classes":"col s12","id":"no_download_data","label":"'Pedir datos al servidor en cada solicitud (conexión rápida, pero afecta el uso de la aplicación en caso de quedarse sin red)'","name":"add_options","target":"download_radio","value":"no_download"};
+- var usernameObj = {"type":"text","classes":"","id":"username","name":"username","label":"'Nombre de usuario'","target":"username","icon":"'account-circle'"};
+- var passwordObj = {"type":"password","classes":"","id":"userpassword","name":"password","label":"'Contraseña'","target":"password","icon":"'lock'"};
+- var checkboxObj = {"type":"checkbox","classes":"","id":"keep_alive","name":"keep_alive","label":"'Mantener la sesión iniciada'","target":"checkbox"};
+- var radio1Obj   = {"type":"radio","classes":"","id":"download_data","label":"'Descargar todos los datos al conectarse (puede retrasar la conexión por varios minutos)'","name":"add_options","target":"download_radio","value":"download"};
+- var radio2Obj   = {"type":"radio","classes":"","id":"no_download_data","label":"'Pedir datos al servidor en cada solicitud (conexión rápida, pero afecta el uso de la aplicación en caso de quedarse sin red)'","name":"add_options","target":"download_radio","value":"no_download"};
 - var selectObj   = {"type":"select","id":"select_lmao","name":"select_lmao","target":"select_lmao","classes":"select-material","label":"'Ayyy lmao'","placeholder":"'select an lmao'","options":[{"label":"'Opción 1'","value":1},{"label":"'Opción 2'","value":2},{"label":"'Opción 3'","value":3}]};
 - var textareaObj = {"type":"textarea","label":"'Area de texto'","placeholder":"'Super area de texto'","id":"textarea","name":"textarea","target":"paragraph","icon":"'message-reply-text'"};
-- var ngForObj    = {"type":"text","classes":"col s12 m12 l12","id":"{{field.id}}","name":"{{field.name}}","type":"text","ngFor":"let field of textInputs","label":"field.label"}
+- var ngForObj    = {"type":"text","classes":"","id":"ng_for_" + "{{field.id}}","name":"{{field.name}}","ngFor":"let field of textInputs","label":"field.label","target":"field.target"}
 
 div.container
     div.row
@@ -17,13 +18,14 @@ div.container
             mz-card-content
                 //- +mz-form({"name":"login_form","contents":{"type":"rows","classes":"card-panel white","rows":[{"type":"row","classes":"card-panel white","columns":[{"contents":usernameObj},{"contents":passwordObj}]},{"type":"row","columns":[{"contents":checkboxObj}]},{"type":"row","classes":"card-panel white","columns":[{"contents":radio1Obj}]},{"type":"row","columns":[{"contents":radio2Obj}]},{"type":"row","columns":[{"contents":selectObj}]},{"type":"row","classes":"card-panel white","columns":[{"contents":textareaObj}]}]}})
                 //- +mz-form({"name":"login_form","contents":{"type":"sections","classes":"card-panel white","sections":[{"type":"row","classes":"card-panel white","columns":[{"contents":usernameObj},{"contents":passwordObj}]},{"type":"row","columns":[{"contents":checkboxObj}]},{"type":"row","classes":"card-panel white","columns":[{"contents":radio1Obj}]},{"type":"row","columns":[{"contents":radio2Obj}]},{"type":"row","columns":[{"contents":selectObj}]},{"type":"row","classes":"card-panel white","columns":[{"contents":textareaObj}]}]}})
-                +mz-form({"name":"login_form","contents":{"type":"sections","classes":"card-panel white","sections":[{"type":"section","classes":"card-panel white ind-section","contents":{"type":"rows","rows":[{"type":"row","columns":[{"contents":usernameObj},{"contents":passwordObj}]},{"type":"row","columns":[{"contents":checkboxObj}]}]}},{"type":"section","classes":"","contents":{"type":"rows","rows":[{"type":"row","columns":[{"contents":radio1Obj}]},{"type":"row","columns":[{"contents":radio2Obj}]}]}},{"type":"section","classes":"card-panel white","contents":{"type":"rows","rows":[{"type":"row","columns":[{"contents":selectObj}]},{"type":"row","columns":[{"contents":textareaObj}]}]}},{"type":"section","contents":{"type":"rows","rows":[{"type":"row","columns":[{"type":"column","contents":ngForObj}]}]}}]}})
+                +ion-form({"name":"login_form","id":"ayy_lmao","contents":{"type":"sections","classes":"card-panel white","sections":[{"type":"section","classes":"card-panel white ind-section","contents":{"type":"rows","rows":[{"type":"row","columns":[{"size_s":"6","contents":usernameObj},{"size_s":"6","contents":passwordObj}]},{"type":"row","columns":[{"size_s":"12","contents":checkboxObj}]}]}},{"type":"section","classes":"","contents":{"type":"rows","rows":[{"type":"row","columns":[{"size_s":"12","contents":radio1Obj}]},{"type":"row","columns":[{"size_s":"12","contents":radio2Obj}]}]}},{"type":"section","classes":"card-panel white","contents":{"type":"rows","rows":[{"type":"row","columns":[{"size_s":"12","contents":selectObj}]},{"type":"row","columns":[{"size_s":"12","contents":textareaObj}]}]}},{"type":"section","contents":{"type":"rows","rows":[{"type":"row","columns":[{"size_s":"12","type":"column","contents":ngForObj}]}]}}]}})
                 p Nombre de usuario: {{username}}
                 p Contraseña: {{password}}
                 p Lmao: {{select_lmao}}
                 p Textarea: {{paragraph}}
                 p Checkbox: {{checkbox}}
                 p Radio Button: {{download_radio}}
+    +mz-card({"backgroundClass":"'blue-grey darken-1'","title":"ayyy lmao"}, "lmao ayy")
 
 a(uiSref='hello' uiSrefActive='active-class') Hello
 br

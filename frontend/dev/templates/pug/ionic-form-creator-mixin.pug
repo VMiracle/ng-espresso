@@ -1,25 +1,20 @@
 //- 
     Version Information
 
-    Form Creator Mixin v 0.0.4
-    ng2-materialize version
-    Created by Victor Miracle on august 7, 2017
+    Form Creator Mixin v 0.0.3
+    Ionic version
+    Created by Victor Miracle on august 16, 2017
     Last updated august 16, 2017 by Victor Miracle
     Property of Koi Software
 
     Version History
 
-    0.0.1
-        -Initial creation of form elements
-    0.0.2
-        -Addition of form formatting mixins (for rows, sections, etc.)
-        -Addition of attributes for form elements
     0.0.3
-        -Minor fixes and expanding the documentation
-    0.0.4
-        -The column classes used for column width have been separated into
-         different attributes, in order to have them easily accesible for other
-         versions of this Form creator
+        -Up-to-date with v0.0.3 of Form Creator for ng2-materialize
+        -When given the exact same input, it will produce a form with similar
+         structure to that of a ng2-materialize form. When incompatibility
+         arises, the Ionic version should still produce a correct output,
+         minus any elements that are incompatible in Ionic
 
     Notes:
 
@@ -47,6 +42,14 @@
      attribute for options but the innerHTML of the option is what is displayed
      in the final HTML element)
 
+    -IMPORTANT: Attributes preceded with "NC: " (Not Compatible) are not
+     currently useable with this version, either because they are not supported
+     by Ionic, they are not needed on the mobile version or they haven't been
+     written yet. "id" and "class" are not used by Ionic, so they won't appear
+     at all.
+    -IMPORTANT: This version has to be kept up-to date with the main version
+     (the ng2-materialize one) in order to be able to use the same objects
+     to create forms on the mobile version. Refer to documentation to do so.
     -IMPORTANT: Should you remove comments in order to create a "production" 
      version, keep the Version Information section and this note, specially if
      your project uses another version of Form Creater Mixin (i.e. Ionic)
@@ -67,23 +70,26 @@
         "ngIf"     : String  // Angular's ngIf attribute. Usually a boolean value in the corresponding component
     }
 
-mixin mz-form(formObject)
+mixin ion-form(formObject)
     form(name= formObject.name method= formObject.method target= formObject.target action= formObject.action "*ngFor"= formObject.ngFor id= formObject.id "*ngIf"= formObject.ngIf)
         if formObject.contents.type == "rows"
-            div(class= formObject.contents.classes)
-                +print-rows(formObject.contents)
+            ion-grid()
+                +ion-print-rows(formObject.contents)
         else if formObject.contents.type == "row"
-            div(class= formObject.contents.classes)
-                +print-row(formObject.contents)
+            ion-grid()
+                ion-row()
+                    +ion-print-row(formObject.contents)
         else if formObject.contents.type == "column"
-            div(class= formObject.contents.classes)
-                +print-column(formObject.contents)
+            ion-grid()
+                ion-row()
+                    ion-column()
+                        +ion-print-column(formObject.contents)
         else if formObject.contents.type == "sections"
-            div(class= formObject.contents.classes)
-                +print-sections(formObject.contents)
+            ion-grid()
+                +ion-print-sections(formObject.contents)
         else if formObject.contents.type == "section"
-            div(class= formObject.contents.classes)
-                +print-section(formObject.contents)
+            ion-grid()
+                +ion-print-section(formObject.contents)
 
 //- Rows Mixin - Last updated on v0.0.3
     Rows Object
@@ -93,15 +99,12 @@ mixin mz-form(formObject)
         "rows" : Array[Object] // An array of row objects
     }
 
-mixin print-rows(rowsObject)
+mixin ion-print-rows(rowsObject)
     each row in rowsObject.rows
-        if(row.classes)
-            div(class= "row " + row.classes)
-        else
-            div(class= "row")
-                +print-row(row)
+        ion-row()
+            +ion-print-row(row)
 
-//- Row Mixin - Last updated on v0.0.4
+//- Row Mixin - Last updated on v0.0.3
     Row object
 
     {
@@ -111,40 +114,37 @@ mixin print-rows(rowsObject)
         "column"  : Object  // A single column object
     }
 
-mixin print-row(rowObject)
+mixin ion-print-row(rowObject)
     each column in rowObject.columns
         -var columnClasses = "col";
-        -if(column.size_s){ columnClasses += " s" + column.size_s; }
-        -if(column.size_m){ columnClasses += " m" + column.size_m; }
-        -if(column.size_l){ columnClasses += " l" + column.size_l; }
-        div(class= columnClasses "*ngFor"= column.contents.ngFor)
-            +print-column(column)
+        -if(column.size_s){ columnClasses = "col-" + column.size_s; }
+        -if(column.size_m){ columnClasses = "col-" + column.size_m; }
+        -if(column.size_l){ columnClasses = "col-" + column.size_l; }
+        ion-col(something= columnClasses "*ngFor"= column.contents.ngFor)
+            +ion-print-column(column)
 
-//- Column Mixin - Last updated on v0.0.4
+//- Column Mixin - Last updated on v0.0.3
     Column object
 
     {
         "type"     : "column", // Explicit declaration of object type
         "classes"  : String,   // Any number of classes contained in one string, separated by spaces
-        "size_s"   : Number,   // Width of the column for small screens
-        "size_m"   : Number,   // Width of the column for medium screens
-        "size_l"   : Number,   // Width of the column for large screens
         "contents" : Object    // A object of any of the supported types, currently text|password|textarea|checkbox|radio|select
     }
 
-mixin print-column(columnObject)
+mixin ion-print-column(columnObject)
     if columnObject.contents.type == "text"
-        +mz-input(columnObject.contents)
+        +ion-input(columnObject.contents)
     else if columnObject.contents.type == "password"
-        +mz-input(columnObject.contents)
+        +ion-input(columnObject.contents)
     else if columnObject.contents.type == "textarea"
-        +mz-textarea(columnObject.contents)
+        +ion-textarea(columnObject.contents)
     else if columnObject.contents.type == "checkbox"
-        +mz-checkbox(columnObject.contents)
+        +ion-checkbox(columnObject.contents)
     else if columnObject.contents.type == "radio"
-        +mz-radio-button(columnObject.contents)
+        +ion-radio-button(columnObject.contents)
     else if columnObject.contents.type == "select"
-        +mz-select(columnObject.contents)
+        +ion-select(columnObject.contents)
 
 //- Sections Mixin - Last updated on v0.0.3
     Sections Object
@@ -154,9 +154,9 @@ mixin print-column(columnObject)
         "sections" : Array[Object] // An array of section objects
     }
 
-mixin print-sections(sectionObject)
+mixin ion-print-sections(sectionObject)
     each section in sectionObject.sections
-        +print-section(section)
+        +ion-print-section(section)
 
 //- Section Mixin - Last updated on v0.0.3
     Section Object
@@ -167,13 +167,11 @@ mixin print-sections(sectionObject)
         "contents" : Object     // A single object, either a rows or a section object
     }
 
-mixin print-section(sectionObject)
+mixin ion-print-section(sectionObject)
     if sectionObject.contents.type == "rows"
-        div(class= sectionObject.classes)
-            +print-rows(sectionObject.contents)
+        +ion-print-rows(sectionObject.contents)
     else if sectionObject.contents.type == "section"
-        div(class= sectionObject.classes)
-            +print-section(sectionObject.contents)
+        +ion-print-section(sectionObject.contents)
 
 //- Text input mixin - Last updated on v0.0.3
     Creates a Materialize text input object
@@ -181,18 +179,17 @@ mixin print-section(sectionObject)
     inputObject
     {
         "type"    : "password|text", // Explicit declaration of object type. Currently, mz-input supports password and text type
-        "id"      : String,          // Any string for the id attribute of the <input mz-input> element. It must be unique within the DOM
-        "classes" : String,          // Any number of classes contained in one string, separated by spaces
+        NC: "id"      : String,          // Any string for the id attribute of the <ion-input> element. It must be unique within the DOM
+        NC: "classes" : String,          // Any number of classes contained in one string, separated by spaces
         "label"   : String,          // A string that indicates a variable or object attribute in TypeScript that is to be used as a label. A string must be wrapped in double AND single quotes ("'example'"), while a variable must be wrapped only in double OR single quotes
         "target"  : String,          // ngModel data binding target
-        "icon"    : String,          // A string that indicates a variable or object attribute in TypeScript that is to be used as an icon (https://materialdesignicons.com/). A string must be wrapped in double AND single quotes ("'example'"), while a variable must be wrapped only in double OR single quotes
+        NC: "icon"    : String,          // A string that indicates a variable or object attribute in TypeScript that is to be used as an icon (https://materialdesignicons.com/). A string must be wrapped in double AND single quotes ("'example'"), while a variable must be wrapped only in double OR single quotes
     }
 
-mixin mz-input(inputObject)
-    mz-input-container(class= inputObject.classes)
-        if inputObject.icon
-            i('mz-icon-mdi' 'mz-textarea-prefix' '[icon]'= inputObject.icon)
-        input('mz-input' type= inputObject.type '[label]'= inputObject.label id= inputObject.id '[(ngModel)]'= inputObject.target name= inputObject.name)
+mixin ion-input(inputObject)
+    ion-item()
+        ion-label(floating)= inputObject.label
+        ion-input(type= "text" placeholder= inputObject.placeholder)
 
 //- Text area mixin - Last updated on v0.0.3
     Creates a Materialize text area with a textarea object
@@ -209,11 +206,10 @@ mixin mz-input(inputObject)
         "icon"        : String      // A string that indicates a variable or object attribute in TypeScript that is to be used as an icon (https://materialdesignicons.com/). A string must be wrapped in double AND single quotes ("'example'"), while a variable must be wrapped only in double OR single quotes
     }
 
-mixin mz-textarea(textareaObject)
-    mz-textarea-container(class= textareaObject.classes)
-        if textareaObject.icon
-            i('mz-icon-mdi' 'mz-textarea-prefix' '[icon]'= textareaObject.icon)
-        textarea('mz-textarea' '[label]'= textareaObject.label id= textareaObject.id placeholder= textareaObject.placeholder lenght= textareaObject.lenght '[(ngModel)]'= textareaObject.target name= textareaObject.name)
+mixin ion-textarea(textareaObject)
+    ion-item()
+        ion-label('floating')= textareaObject.label
+        ion-textarea(placeholder= textareaObject.placeholder)
 
 //- Checkbox mixin - Last updated on v0.0.3
     Creates a Materialize checkbox input object
@@ -228,9 +224,10 @@ mixin mz-textarea(textareaObject)
         "name"    : String      // A name for the checkbox. Must be unique within the form context.
     }
 
-mixin mz-checkbox(checkboxObject)
-    mz-checkbox-container(class= checkboxObject.classes)
-        input('mz-checkbox' type="checkbox" '[label]'= checkboxObject.label id= checkboxObject.id '[(ngModel)]'= checkboxObject.target name= checkboxObject.name)
+mixin ion-checkbox(checkboxObject)
+    ion-item()
+        ion-label()= checkboxObject.label
+        ion-checkbox('[(ngModel)]'= checkboxObject.target)
 
 //- Radio button mixin - Last updated on v0.0.3
     Creates a Materialize text input
@@ -246,9 +243,10 @@ mixin mz-checkbox(checkboxObject)
         "value"   : String   // String that indicates what value will be read from the selected radio button
     }
 
-mixin mz-radio-button(radioButtonObject)
-    mz-radio-button-container(class= radioButtonObject.classes)
-        input('mz-radio-button' type="radio" '[label]'= radioButtonObject.label id= radioButtonObject.id name= radioButtonObject.name '[withGap]'= radioButtonObject.gap '[(ngModel)]'= radioButtonObject.target value= radioButtonObject.value)
+mixin ion-radio-button(radioButtonObject)
+    ion-item()
+        ion-label()= radioButtonObject.label
+        ion-radio(value= radioButtonObject.value)
 
 //- Select Mixin - Last updated on v0.0.3
     Creates a Materialize select input
@@ -264,11 +262,12 @@ mixin mz-radio-button(radioButtonObject)
         "options"     : Array[Object]  // An array of option objects (shown below)
     }
     
-mixin mz-select(selectObject)
-    mz-select-container(class= selectObject.classes)
-        select('mz-select' '[label]'= selectObject.label id= selectObject.id name= selectObject.name '[placeholder]'= selectObject.placeholder '[(ngModel)]'= selectObject.target)
+mixin ion-select(selectObject)
+    ion-item()
+        ion-label()= selectObject.label
+        ion-select(interface= "popover" '[(ngModel)]'= selectObject.target)
             each option in selectObject.options
-                +mz-option(option)
+                +ion-option(option)
 
 //- Option Mixin - Last updated on v0.0.3
     Creates a Materialize option for a Materialize select input
@@ -281,5 +280,5 @@ mixin mz-select(selectObject)
         "label"   : String  // A string that indicates a variable or object attribute in TypeScript that is to be used as a label. A string must be wrapped in double AND single quotes ("'example'"), while a variable must be wrapped only in double OR single quotes
     }
 
-mixin mz-option(optionObject)
-    option(class= optionObject.classes id= optionObject.id '[value]'= optionObject.value)= optionObject.label
+mixin ion-option(optionObject)
+    ion-option(value= optionObject.value)= optionObject.label
